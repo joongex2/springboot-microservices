@@ -6,5 +6,5 @@ import net.javaguides.employeeservice.dto.EmployeeDto;
 public interface EmployeeService {
     EmployeeDto saveEmployee(EmployeeDto employee);
 
-    APIResponseDto getEmployeebyId(Long employeeId);
+    APIResponseDto getEmployeeById(Long employeeId);
 }

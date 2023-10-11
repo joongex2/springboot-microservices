@@ -3,7 +3,6 @@ package net.javaguides.employeeservice.controller;
 import lombok.AllArgsConstructor;
 import net.javaguides.employeeservice.dto.APIResponseDto;
 import net.javaguides.employeeservice.dto.EmployeeDto;
-import net.javaguides.employeeservice.entity.Employee;
 import net.javaguides.employeeservice.service.EmployeeService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -27,7 +26,7 @@ public class EmployeeController {
     // Build get employee REST API
     @GetMapping("{id}")
     public ResponseEntity<APIResponseDto> getEmployeeById(@PathVariable("id") Long employeeId) {
-        APIResponseDto apiResponseDto = employeeService.getEmployeebyId(employeeId);
+        APIResponseDto apiResponseDto = employeeService.getEmployeeById(employeeId);
 
         return new ResponseEntity<>(apiResponseDto, HttpStatus.OK);
     }
