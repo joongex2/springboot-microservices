@@ -6,6 +6,7 @@ import lombok.AllArgsConstructor;
 import net.javaguides.employeeservice.dto.APIResponseDto;
 import net.javaguides.employeeservice.dto.DepartmentDto;
 import net.javaguides.employeeservice.dto.EmployeeDto;
+import net.javaguides.employeeservice.dto.OrganizationDto;
 import net.javaguides.employeeservice.entity.Employee;
 import net.javaguides.employeeservice.exception.ResourceNotFoundException;
 import net.javaguides.employeeservice.mapper.AutoEmployeeMapper;
@@ -85,6 +86,12 @@ public class EmployeeServiceImpl implements EmployeeService {
                 .block();
         // DepartmentDto departmentDto = apiClient.getDepartment(employee.getDepartmentCode());
 
+        OrganizationDto organizationDto = webClient.get()
+                .uri("http://localhost:8083/api/organizations/" + employee.getOrganizationCode())
+                .retrieve()
+                .bodyToMono(OrganizationDto.class)
+                .block();
+
 //        EmployeeDto employeeDto = new EmployeeDto(
 //                employee.getId(),
 //                employee.getFirstName(),
@@ -97,8 +104,9 @@ public class EmployeeServiceImpl implements EmployeeService {
         EmployeeDto employeeDto = AutoEmployeeMapper.MAPPER.employeeToEmployeeDto(employee);
 
         APIResponseDto apiResponseDto = new APIResponseDto();
-        apiResponseDto.setEmployeeDto(employeeDto);
-        apiResponseDto.setDepartmentDto(departmentDto);
+        apiResponseDto.setEmployee(employeeDto);
+        apiResponseDto.setDepartment(departmentDto);
+        apiResponseDto.setOrganization(organizationDto);
 
         return apiResponseDto;
     }
@@ -116,8 +124,8 @@ public class EmployeeServiceImpl implements EmployeeService {
         EmployeeDto employeeDto = AutoEmployeeMapper.MAPPER.employeeToEmployeeDto(employee);
 
         APIResponseDto apiResponseDto = new APIResponseDto();
-        apiResponseDto.setEmployeeDto(employeeDto);
-        apiResponseDto.setDepartmentDto(departmentDto);
+        apiResponseDto.setEmployee(employeeDto);
+        apiResponseDto.setDepartment(departmentDto);
 
         return apiResponseDto;
     }
